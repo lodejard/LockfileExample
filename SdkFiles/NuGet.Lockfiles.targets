@@ -77,7 +77,7 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="GenerateLockFile" DependsOnTargets="LoadProjectAssetsFile;FindDirectDependencies;ApplyPackageDefinitions;ApplyTargetDefinitions;ApplyPackageReference" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)-">
+  <Target Name="GenerateLockFile" DependsOnTargets="LoadProjectAssetsFile;FindDirectDependencies;ApplyPackageDefinitions;ApplyTargetDefinitions;ApplyPackageReference" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)">
     <ItemGroup>
       <DirectDependency>
         <Attributes>Name="%(Name)" Version="%(Version)"</Attributes>
