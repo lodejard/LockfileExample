@@ -85,7 +85,7 @@
       <ProjectLockFileLine1 Include="%20%20%20%20&lt;MsBuildAllProjects&gt;%24(MsBuildAllProjects)%3b%24(MsBuildThisFileFullPath)&lt;/MsBuildAllProjects&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;/PropertyGroup&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;ItemGroup&gt;" />
-      <ProjectLockFileLine2 Include="%20%20%20%20&lt;PackageReferenceLock %(DirectDependency.Attributes) /&gt;" Condition=" '@(DirectDependency)' != '' and '%(DirectDependency.RuntimeIdentifier)' == '' "/>
+      <ProjectLockFileLine2 Include="%20%20%20%20&lt;PackageReferenceLock %(DirectDependency.Attributes) /&gt;" Condition=" '@(DirectDependency)' != '' and '%(DirectDependency.Type)' == 'package' and '%(DirectDependency.RuntimeIdentifier)' == '' "/>
       <ProjectLockFileLine3 Include="%20%20&lt;/ItemGroup&gt;" />
       <ProjectLockFileLine3 Include="&lt;/Project&gt;" />
     </ItemGroup>

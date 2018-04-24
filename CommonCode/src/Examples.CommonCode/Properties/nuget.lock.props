@@ -1,0 +1,11 @@
+<Project>
+  <!-- Updated at 4/23/2018 10:45:57 PM on LODEJARD35 -->
+  <PropertyGroup>
+    <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReferenceLock Include="CsvHelper/7.0.0/.NETFramework,Version=v4.6.1" Name="CsvHelper" Version="7.0.0" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" />
+    <PackageReferenceLock Include="CsvHelper/7.0.0/.NETStandard,Version=v2.0" Name="CsvHelper" Version="7.0.0" TargetFrameworkMoniker=".NETStandard,Version=v2.0" />
+    <PackageReferenceLock Include="NETStandard.Library/2.0.1/.NETStandard,Version=v2.0" Name="NETStandard.Library" Version="2.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" />
+  </ItemGroup>
+</Project>

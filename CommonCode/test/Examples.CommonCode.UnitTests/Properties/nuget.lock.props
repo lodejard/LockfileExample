@@ -1,0 +1,12 @@
+<Project>
+  <!-- Updated at 4/23/2018 10:19:58 PM on LODEJARD35 -->
+  <PropertyGroup>
+    <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReferenceLock Include="Microsoft.NET.Test.Sdk/15.5.0/.NETCoreApp,Version=v2.0" Name="Microsoft.NET.Test.Sdk" Version="15.5.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Include="MSTest.TestAdapter/1.2.0/.NETCoreApp,Version=v2.0" Name="MSTest.TestAdapter" Version="1.2.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Include="MSTest.TestFramework/1.2.0/.NETCoreApp,Version=v2.0" Name="MSTest.TestFramework" Version="1.2.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+  </ItemGroup>
+</Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Examples.CommonCode;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
@@ -12,6 +13,13 @@ namespace WebApplication1.Controllers
     {
         public IActionResult Index()
         {
+            var worker = new SimpleWorker();
+            ViewData["Data"] = worker.DoWork(new[]
+            {
+                new[]{"One", "Two"},
+                new[]{"Three", "Four"},
+            });
+
             return View();
         }
 
