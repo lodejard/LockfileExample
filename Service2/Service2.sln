@@ -20,9 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{1BE73C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.CommonCode", "..\CommonCode\src\Examples.CommonCode\Examples.CommonCode.csproj", "{7DBF9A6A-E559-4D9D-AB2D-451031D57150}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "src\ConsoleApp2\ConsoleApp2.csproj", "{6F515560-4E94-46CB-99CE-8B0EA23DB5CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2", "src\ConsoleApp2\ConsoleApp2.csproj", "{6F515560-4E94-46CB-99CE-8B0EA23DB5CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2.UnitTests", "test\ConsoleApp2.UnitTests\ConsoleApp2.UnitTests.csproj", "{A6DF872F-F7DE-43F0-AEB5-0B062D78D302}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2.UnitTests", "test\ConsoleApp2.UnitTests\ConsoleApp2.UnitTests.csproj", "{A6DF872F-F7DE-43F0-AEB5-0B062D78D302}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
