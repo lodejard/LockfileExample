@@ -7,10 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "src\WebA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{B39B29F9-AC36-497C-AE96-7ACAEC52EF89}"
 	ProjectSection(SolutionItems) = preProject
-		..\.gitattributes = ..\.gitattributes
-		..\.gitignore = ..\.gitignore
-		..\Directory.Build.props = ..\Directory.Build.props
-		..\Directory.Build.targets = ..\Directory.Build.targets
+		..\Common.props = ..\Common.props
 		..\NuGet.config = ..\NuGet.config
 	EndProjectSection
 EndProject
@@ -23,6 +20,20 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{1BE73CAD-2A26-4500-83AD-8BF178230BFB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.CommonCode", "..\CommonCode\src\Examples.CommonCode\Examples.CommonCode.csproj", "{7DBF9A6A-E559-4D9D-AB2D-451031D57150}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{38858F03-A670-469C-B0BA-F4A4BC767A4D}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\Directory.Build.props = ..\Directory.Build.props
+		..\Directory.Build.targets = ..\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sdk", "Sdk", "{0F4C5BC8-A867-4044-8A95-8EE8969F812D}"
+	ProjectSection(SolutionItems) = preProject
+		..\SdkFiles\NuGet.Lockfiles.props = ..\SdkFiles\NuGet.Lockfiles.props
+		..\SdkFiles\NuGet.Lockfiles.targets = ..\SdkFiles\NuGet.Lockfiles.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +61,8 @@ Global
 		{EC038D5A-22DC-42F1-BEB2-72557F6C0EAF} = {E8092099-8BA5-48A2-917D-766DF2CFD5EE}
 		{4BD82157-0263-402C-9C7D-D15A6DD3398D} = {14F3CA4D-0117-4A4D-BE01-9C639829061C}
 		{7DBF9A6A-E559-4D9D-AB2D-451031D57150} = {1BE73CAD-2A26-4500-83AD-8BF178230BFB}
+		{38858F03-A670-469C-B0BA-F4A4BC767A4D} = {B39B29F9-AC36-497C-AE96-7ACAEC52EF89}
+		{0F4C5BC8-A867-4044-8A95-8EE8969F812D} = {B39B29F9-AC36-497C-AE96-7ACAEC52EF89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2F3F230-0681-42BF-BC6E-9B0525A3FDBB}

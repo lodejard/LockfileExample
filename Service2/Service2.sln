@@ -5,10 +5,7 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{B39B29F9-AC36-497C-AE96-7ACAEC52EF89}"
 	ProjectSection(SolutionItems) = preProject
-		..\.gitattributes = ..\.gitattributes
-		..\.gitignore = ..\.gitignore
-		..\Directory.Build.props = ..\Directory.Build.props
-		..\Directory.Build.targets = ..\Directory.Build.targets
+		..\Common.props = ..\Common.props
 		..\NuGet.config = ..\NuGet.config
 	EndProjectSection
 EndProject
@@ -23,6 +20,20 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2", "src\ConsoleApp2\ConsoleApp2.csproj", "{6F515560-4E94-46CB-99CE-8B0EA23DB5CA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2.UnitTests", "test\ConsoleApp2.UnitTests\ConsoleApp2.UnitTests.csproj", "{A6DF872F-F7DE-43F0-AEB5-0B062D78D302}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{8CDDB3BA-29F8-40D8-BE53-C204C8C33ED6}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\Directory.Build.props = ..\Directory.Build.props
+		..\Directory.Build.targets = ..\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sdk", "Sdk", "{E8C6918E-9F11-4557-AC30-B4E68F80093B}"
+	ProjectSection(SolutionItems) = preProject
+		..\SdkFiles\NuGet.Lockfiles.props = ..\SdkFiles\NuGet.Lockfiles.props
+		..\SdkFiles\NuGet.Lockfiles.targets = ..\SdkFiles\NuGet.Lockfiles.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +61,8 @@ Global
 		{7DBF9A6A-E559-4D9D-AB2D-451031D57150} = {1BE73CAD-2A26-4500-83AD-8BF178230BFB}
 		{6F515560-4E94-46CB-99CE-8B0EA23DB5CA} = {E8092099-8BA5-48A2-917D-766DF2CFD5EE}
 		{A6DF872F-F7DE-43F0-AEB5-0B062D78D302} = {14F3CA4D-0117-4A4D-BE01-9C639829061C}
+		{8CDDB3BA-29F8-40D8-BE53-C204C8C33ED6} = {B39B29F9-AC36-497C-AE96-7ACAEC52EF89}
+		{E8C6918E-9F11-4557-AC30-B4E68F80093B} = {B39B29F9-AC36-497C-AE96-7ACAEC52EF89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2F3F230-0681-42BF-BC6E-9B0525A3FDBB}

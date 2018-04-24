@@ -5,10 +5,7 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{B39B29F9-AC36-497C-AE96-7ACAEC52EF89}"
 	ProjectSection(SolutionItems) = preProject
-		..\.gitattributes = ..\.gitattributes
-		..\.gitignore = ..\.gitignore
-		..\Directory.Build.props = ..\Directory.Build.props
-		..\Directory.Build.targets = ..\Directory.Build.targets
+		..\Common.props = ..\Common.props
 		..\NuGet.config = ..\NuGet.config
 	EndProjectSection
 EndProject
@@ -16,9 +13,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E8092099-8BA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{14F3CA4D-0117-4A4D-BE01-9C639829061C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.CommonCode", "src\Examples.CommonCode\Examples.CommonCode.csproj", "{EC74A233-4AC0-43E9-94D3-E60600E0A9E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.CommonCode", "src\Examples.CommonCode\Examples.CommonCode.csproj", "{EC74A233-4AC0-43E9-94D3-E60600E0A9E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.CommonCode.UnitTests", "test\Examples.CommonCode.UnitTests\Examples.CommonCode.UnitTests.csproj", "{77B8FF99-8AE3-48BC-A677-6FBA65803A93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.CommonCode.UnitTests", "test\Examples.CommonCode.UnitTests\Examples.CommonCode.UnitTests.csproj", "{77B8FF99-8AE3-48BC-A677-6FBA65803A93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{98A4E558-0D9F-4CE3-8993-33C58BCEDF39}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\Directory.Build.props = ..\Directory.Build.props
+		..\Directory.Build.targets = ..\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sdk", "Sdk", "{67557409-E480-4634-82FE-FA2F1FD896A9}"
+	ProjectSection(SolutionItems) = preProject
+		..\SdkFiles\NuGet.Lockfiles.props = ..\SdkFiles\NuGet.Lockfiles.props
+		..\SdkFiles\NuGet.Lockfiles.targets = ..\SdkFiles\NuGet.Lockfiles.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +52,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EC74A233-4AC0-43E9-94D3-E60600E0A9E8} = {E8092099-8BA5-48A2-917D-766DF2CFD5EE}
 		{77B8FF99-8AE3-48BC-A677-6FBA65803A93} = {14F3CA4D-0117-4A4D-BE01-9C639829061C}
+		{98A4E558-0D9F-4CE3-8993-33C58BCEDF39} = {B39B29F9-AC36-497C-AE96-7ACAEC52EF89}
+		{67557409-E480-4634-82FE-FA2F1FD896A9} = {B39B29F9-AC36-497C-AE96-7ACAEC52EF89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2F3F230-0681-42BF-BC6E-9B0525A3FDBB}
