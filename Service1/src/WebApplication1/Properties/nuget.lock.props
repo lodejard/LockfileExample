@@ -1,0 +1,10 @@
+<Project>
+  <!-- Updated at 4/23/2018 10:03:50 PM on LODEJARD32 -->
+  <PropertyGroup>
+    <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReferenceLock Include="Microsoft.AspNetCore.All/2.0.6/.NETCoreApp,Version=v2.0" Name="Microsoft.AspNetCore.All" Version="2.0.6" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+  </ItemGroup>
+</Project>
