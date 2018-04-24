@@ -3,7 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{DA15E485-FAC0-42E7-BDF3-1D42361505E0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{B39B29F9-AC36-497C-AE96-7ACAEC52EF89}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\Directory.Build.props = ..\Directory.Build.props
+		..\Directory.Build.targets = ..\Directory.Build.targets
+		..\NuGet.config = ..\NuGet.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E8092099-8BA5-48A2-917D-766DF2CFD5EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{14F3CA4D-0117-4A4D-BE01-9C639829061C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{1BE73CAD-2A26-4500-83AD-8BF178230BFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.CommonCode", "..\CommonCode\src\Examples.CommonCode\Examples.CommonCode.csproj", "{7DBF9A6A-E559-4D9D-AB2D-451031D57150}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "src\ConsoleApp2\ConsoleApp2.csproj", "{6F515560-4E94-46CB-99CE-8B0EA23DB5CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2.UnitTests", "test\ConsoleApp2.UnitTests\ConsoleApp2.UnitTests.csproj", "{A6DF872F-F7DE-43F0-AEB5-0B062D78D302}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +30,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DA15E485-FAC0-42E7-BDF3-1D42361505E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA15E485-FAC0-42E7-BDF3-1D42361505E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA15E485-FAC0-42E7-BDF3-1D42361505E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA15E485-FAC0-42E7-BDF3-1D42361505E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DBF9A6A-E559-4D9D-AB2D-451031D57150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DBF9A6A-E559-4D9D-AB2D-451031D57150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DBF9A6A-E559-4D9D-AB2D-451031D57150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DBF9A6A-E559-4D9D-AB2D-451031D57150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F515560-4E94-46CB-99CE-8B0EA23DB5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F515560-4E94-46CB-99CE-8B0EA23DB5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F515560-4E94-46CB-99CE-8B0EA23DB5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F515560-4E94-46CB-99CE-8B0EA23DB5CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6DF872F-F7DE-43F0-AEB5-0B062D78D302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6DF872F-F7DE-43F0-AEB5-0B062D78D302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6DF872F-F7DE-43F0-AEB5-0B062D78D302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6DF872F-F7DE-43F0-AEB5-0B062D78D302}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7DBF9A6A-E559-4D9D-AB2D-451031D57150} = {1BE73CAD-2A26-4500-83AD-8BF178230BFB}
+		{6F515560-4E94-46CB-99CE-8B0EA23DB5CA} = {E8092099-8BA5-48A2-917D-766DF2CFD5EE}
+		{A6DF872F-F7DE-43F0-AEB5-0B062D78D302} = {14F3CA4D-0117-4A4D-BE01-9C639829061C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2F3F230-0681-42BF-BC6E-9B0525A3FDBB}

@@ -21,6 +21,7 @@ namespace Examples.CommonCode
                     foreach (var record in records)
                     {
                         serializer.Write(record);
+                        serializer.WriteLine();
                     }
                 }
                 return writer.GetStringBuilder().ToString();
