@@ -1,0 +1,32 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Ensure that projects rebuild if this file changes. -->
+    <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
+  </PropertyGroup>
+
+  <Choose>
+    <!--
+      This repo author has decided to create and update lock files automatically on
+      developer workstations. The build server may set GenerateLockFile to false, which won't
+      have any net effect but will prevent re-writing.
+    -->
+
+    <!-- on a build server default -->
+    <When Condition=" '$(BUILD_BUILDID)' != '' ">
+      <PropertyGroup>
+        <!-- do not attempt to create or update nuget.lock.props files -->
+        <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >false</GenerateLockFile>
+      </PropertyGroup>
+    </When>
+
+    <!-- on a developer workstation -->
+    <Otherwise>
+      <PropertyGroup>
+        <!-- nuget.lock.props file should be updated automatically when project.assets.json changes -->
+        <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >true</GenerateLockFile>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+</Project>

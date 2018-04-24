@@ -5,11 +5,10 @@
     <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <ProjectLockFile Condition=" '$(ProjectLockFile)' == '' ">Properties\nuget.lock.props</ProjectLockFile>
-    <ProjectLockFile Condition=" '$([System.IO.Path]::IsPathRooted($(ProjectAssetsFile)))' != 'true' ">$([System.IO.Path]::GetFullPath($([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(ProjectLockFile)'))))</ProjectLockFile>
-  </PropertyGroup>
+  <!-- Import extra files that would be part of the sdk -->
+  <Import Project="$(MsBuildThisFileDirectory)SdkFiles\*.props" Condition=" Exists('$(MsBuildThisFileDirectory)SdkFiles') " />
 
-  <Import Project="$(ProjectLockFile)" Condition=" Exists($(ProjectLockFile)) " />
+  <!-- Import a common props file for repo-wide user settings, a typical practice -->
+  <Import Project="$(MsBuildThisFileDirectory)Common.props" Condition=" Exists('$(MsBuildThisFileDirectory)Common.props') " />
 
 </Project>

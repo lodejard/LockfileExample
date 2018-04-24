@@ -1,0 +1,15 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Ensure that projects rebuild if this file changes. -->
+    <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ProjectLockFile Condition=" '$(ProjectLockFile)' == '' ">Properties\nuget.lock.props</ProjectLockFile>
+    <ProjectLockFile Condition=" '$([System.IO.Path]::IsPathRooted($(ProjectAssetsFile)))' != 'true' ">$([System.IO.Path]::GetFullPath($([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(ProjectLockFile)'))))</ProjectLockFile>
+  </PropertyGroup>
+
+  <Import Project="$(ProjectLockFile)" Condition=" Exists($(ProjectLockFile)) " />
+
+</Project>
