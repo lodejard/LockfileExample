@@ -77,10 +77,10 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="GenerateLockFile" DependsOnTargets="LoadProjectAssetsFile;FindDirectDependencies;ApplyPackageDefinitions;ApplyTargetDefinitions;ApplyPackageReference" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)">
+  <Target Name="GenerateLockFile" DependsOnTargets="LoadProjectAssetsFile;FindDirectDependencies;ApplyPackageDefinitions;ApplyTargetDefinitions;ApplyPackageReference" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)-">
     <ItemGroup>
       <DirectDependency>
-        <Attributes>Include="%(Identity)/%(ParentTarget)" Name="%(Name)" Version="%(Version)"</Attributes>
+        <Attributes>Name="%(Name)" Version="%(Version)"</Attributes>
       </DirectDependency>
       <DirectDependency Condition=" '%(DirectDependency.ReferenceVersion)' != '' and false ">
         <Attributes>%(Attributes) ReferenceVersion="%(DirectDependency.ReferenceVersion)"</Attributes>
@@ -90,6 +90,9 @@
       </DirectDependency>
       <DirectDependency Condition=" '%(DirectDependency.RuntimeIdentifier)' != '' ">
         <Attributes>%(Attributes) RuntimeIdentifier="%(DirectDependency.RuntimeIdentifier)"</Attributes>
+      </DirectDependency>
+      <DirectDependency>
+        <Attributes>%(Attributes) Include="%(Identity)/%(ParentTarget)"</Attributes>
       </DirectDependency>
     </ItemGroup>
 

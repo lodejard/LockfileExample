@@ -14,7 +14,7 @@
     <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReferenceLock Include="Microsoft.AspNetCore.All/2.0.6/.NETCoreApp,Version=v2.0" Name="Microsoft.AspNetCore.All" Version="2.0.6" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
-    <PackageReferenceLock Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Name="Microsoft.AspNetCore.All" Version="2.0.6" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Microsoft.AspNetCore.All/2.0.6/.NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" />
   </ItemGroup>
 </Project>

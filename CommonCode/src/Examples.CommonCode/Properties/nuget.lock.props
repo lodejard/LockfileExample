@@ -14,8 +14,8 @@
     <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReferenceLock Include="CsvHelper/6.0.0/.NETFramework,Version=v4.6.1" Name="CsvHelper" Version="6.0.0" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" />
-    <PackageReferenceLock Include="CsvHelper/6.0.0/.NETStandard,Version=v2.0" Name="CsvHelper" Version="6.0.0" TargetFrameworkMoniker=".NETStandard,Version=v2.0" />
-    <PackageReferenceLock Include="NETStandard.Library/2.0.1/.NETStandard,Version=v2.0" Name="NETStandard.Library" Version="2.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" />
+    <PackageReferenceLock Name="CsvHelper" Version="6.0.0" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" Include="CsvHelper/6.0.0/.NETFramework,Version=v4.6.1" />
+    <PackageReferenceLock Name="CsvHelper" Version="6.0.0" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="CsvHelper/6.0.0/.NETStandard,Version=v2.0" />
+    <PackageReferenceLock Name="NETStandard.Library" Version="2.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="NETStandard.Library/2.0.1/.NETStandard,Version=v2.0" />
   </ItemGroup>
 </Project>

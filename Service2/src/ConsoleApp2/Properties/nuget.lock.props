@@ -14,8 +14,8 @@
     <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReferenceLock Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
-    <PackageReferenceLock Include="Serilog.Sinks.Console/3.0.0/.NETCoreApp,Version=v2.0" Name="Serilog.Sinks.Console" Version="3.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
-    <PackageReferenceLock Include="Serilog.Sinks.Console/3.0.0/.NETFramework,Version=v4.6.1" Name="Serilog.Sinks.Console" Version="3.0.0" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" />
+    <PackageReferenceLock Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Name="Serilog.Sinks.Console" Version="3.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Serilog.Sinks.Console/3.0.0/.NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Name="Serilog.Sinks.Console" Version="3.0.0" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" Include="Serilog.Sinks.Console/3.0.0/.NETFramework,Version=v4.6.1" />
   </ItemGroup>
 </Project>
