@@ -14,8 +14,11 @@
     <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReferenceLock Name="CsvHelper" Version="6.0.0" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" Include="CsvHelper/6.0.0/.NETFramework,Version=v4.6.1" />
-    <PackageReferenceLock Name="CsvHelper" Version="6.0.0" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="CsvHelper/6.0.0/.NETStandard,Version=v2.0" />
+    <PackageReferenceLock Name="CsvHelper" Version="6.0.3" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" Include="CsvHelper/6.0.3/.NETFramework,Version=v4.6.1" />
+    <PackageReferenceLock Name="CsvHelper" Version="6.0.3" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="CsvHelper/6.0.3/.NETStandard,Version=v2.0" />
+    <PackageReferenceLock Name="Microsoft.CSharp" Version="4.4.0" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="Microsoft.CSharp/4.4.0/.NETStandard,Version=v2.0" />
+    <PackageReferenceLock Name="System.Reflection.TypeExtensions" Version="4.4.0" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="System.Reflection.TypeExtensions/4.4.0/.NETStandard,Version=v2.0" />
     <PackageReferenceLock Name="NETStandard.Library" Version="2.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="NETStandard.Library/2.0.1/.NETStandard,Version=v2.0" />
+    <PackageReferenceLock Name="Microsoft.NETCore.Platforms" Version="1.1.0" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="Microsoft.NETCore.Platforms/1.1.0/.NETStandard,Version=v2.0" />
   </ItemGroup>
 </Project>
