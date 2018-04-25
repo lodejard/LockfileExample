@@ -17,6 +17,7 @@
       <PropertyGroup>
         <!-- do not attempt to create or update nuget.lock.props files -->
         <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >false</GenerateLockFile>
+        <FlattenLockFile>true</FlattenLockFile>
       </PropertyGroup>
     </When>
 
@@ -25,6 +26,7 @@
       <PropertyGroup>
         <!-- nuget.lock.props file should be updated automatically when project.assets.json changes -->
         <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >true</GenerateLockFile>
+        <FlattenLockFile>true</FlattenLockFile>
       </PropertyGroup>
     </Otherwise>
   </Choose>

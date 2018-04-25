@@ -18,6 +18,12 @@
       Setting this to true in the csproj or a common user props file will automatically create and update the lock 
       file -->
     <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' ">false</GenerateLockFile>
+
+    <!--
+      Setting this has two effects. It includes the transitive package versions in the generated lock file - and it adds
+      each of those packages as <PackageReference> for the purpose of restore and VS display.
+    -->
+    <FlattenLockFile Condition=" '$(FlattenLockFile)' == '' ">false</FlattenLockFile>
   </PropertyGroup>
   
   <UsingTask TaskName="Microsoft.NET.Build.Tasks.ResolvePackageDependencies" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
@@ -27,11 +33,13 @@
       <Output TaskParameter="PackageDefinitions" ItemName="LockPackageDefinitions" />
       <Output TaskParameter="PackageDependencies" ItemName="LockPackageDependencies" />
     </ResolvePackageDependencies>
+    
+    <!--<Message Text="LockPackageDependencies:%(LockPackageDependencies.Identity) ParentTarget:%(LockPackageDependencies.ParentTarget) ParentPackage:%(LockPackageDependencies.ParentPackage)" Importance="high" />-->
   </Target>
 
   <Target Name="FindDirectDependencies">
     <ItemGroup>
-      <DirectDependency Include="@(LockPackageDependencies)" Condition=" '%(LockPackageDependencies.ParentPackage)' == '' "/>
+      <DirectDependency Include="@(LockPackageDependencies)" />
     </ItemGroup>
   </Target>
 
@@ -94,8 +102,11 @@
       <DirectDependency>
         <Attributes>%(Attributes) Include="%(Identity)/%(ParentTarget)"</Attributes>
       </DirectDependency>
+      <DirectDependency Condition=" '%(DirectDependency.Type)' == 'package' and '%(DirectDependency.RuntimeIdentifier)' == '' and ( '%(DirectDependency.ParentPackage)' == '' or '$(FlattenLockFile)' == 'true' ) ">
+        <WriteToLockFile>true</WriteToLockFile>
+      </DirectDependency>
     </ItemGroup>
-
+    
     <ItemGroup>
       <ProjectLockFileLine1 Include="&lt;Project&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;!--" />
@@ -113,7 +124,7 @@
       <ProjectLockFileLine1 Include="%20%20%20%20&lt;MsBuildAllProjects&gt;%24(MsBuildAllProjects)%3b%24(MsBuildThisFileFullPath)&lt;/MsBuildAllProjects&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;/PropertyGroup&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;ItemGroup&gt;" />
-      <ProjectLockFileLine2 Include="%20%20%20%20&lt;PackageReferenceLock %(DirectDependency.Attributes) /&gt;" Condition=" '@(DirectDependency)' != '' and '%(DirectDependency.Type)' == 'package' and '%(DirectDependency.RuntimeIdentifier)' == '' "/>
+      <ProjectLockFileLine2 Include="%20%20%20%20&lt;PackageReferenceLock %(DirectDependency.Attributes) /&gt;" Condition=" '@(DirectDependency)' != '' and '%(DirectDependency.WriteToLockFile)' == 'true' "/>
       <ProjectLockFileLine3 Include="%20%20&lt;/ItemGroup&gt;" />
       <ProjectLockFileLine3 Include="&lt;/Project&gt;" />
     </ItemGroup>
@@ -122,9 +133,7 @@
     <MakeDir Directories="$([System.IO.Path]::GetDirectoryName('$(ProjectLockFile)'))" />
     <WriteLinesToFile File="$(ProjectLockFile)" Lines="@(ProjectLockFileLine1);@(ProjectLockFileLine2);@(ProjectLockFileLine3)" Overwrite="true" />
   </Target>
-<!--
-  <Target Name="GenerateLockFileAfterRunResolvePackageDependencies" DependsOnTargets="GenerateLockFile" AfterTargets="RunResolvePackageDependencies" Condition=" '$(GenerateLockFile)' == 'true' and ('$(DesignTimeBuild)' != 'true' Or Exists('$(ProjectAssetsFile)')) " />
--->
+
   <Target Name="GenerateLockFileAfterBuild" DependsOnTargets="GenerateLockFile" AfterTargets="AfterBuild" Condition=" '$(GenerateLockFile)' == 'true' and ('$(DesignTimeBuild)' != 'true' Or Exists('$(ProjectAssetsFile)')) ">
     <!--<Message Text="GenerateLockFileAfterCoreCompile" Importance="high" />-->
   </Target>
@@ -143,10 +152,18 @@
       <_PackageReferenceLock_Version>%(PackageReferenceLock.Version)</_PackageReferenceLock_Version>
       <_PackageReferenceLock_TargetFrameworkMoniker>%(PackageReferenceLock.TargetFrameworkMoniker)</_PackageReferenceLock_TargetFrameworkMoniker>
       <_PackageReferenceLock_RuntimeIdentifier>%(PackageReferenceLock.RuntimeIdentifier)</_PackageReferenceLock_RuntimeIdentifier>
+      
+      <_PackageReferenceLock_IsCorrectContext Condition=" '$(_PackageReferenceLock_TargetFrameworkMoniker)' == '$(TargetFrameworkMoniker)' and '$(_PackageReferenceLock_RuntimeIdentifier)' == '' ">true</_PackageReferenceLock_IsCorrectContext>
+      <_PackageReferenceLock_IsExistingReference Condition=" '%(PackageReference.Identity)' == '$(_PackageReferenceLock_Name)' ">true</_PackageReferenceLock_IsExistingReference>
     </PropertyGroup>
 
-    <ItemGroup Condition=" '$(_PackageReferenceLock_TargetFrameworkMoniker)' == '$(TargetFrameworkMoniker)' and '$(_PackageReferenceLock_RuntimeIdentifier)' == '' ">
+    <!--<Message Text="_PackageReferenceLock_Name=$(_PackageReferenceLock_Name) IsCorrectContext=$(_PackageReferenceLock_IsCorrectContext) IsExistingReference=$(_PackageReferenceLock_IsExistingReference)" Importance="high" />-->
+    
+    <ItemGroup Condition=" '$(_PackageReferenceLock_IsCorrectContext)' == 'true' and '$(_PackageReferenceLock_IsExistingReference)' == 'true' ">
       <PackageReference  Version="$(_PackageReferenceLock_Version)" Condition=" '%(Identity)' == '$(_PackageReferenceLock_Name)' " />
+    </ItemGroup>
+    <ItemGroup Condition=" '$(_PackageReferenceLock_IsCorrectContext)' == 'true' and '$(_PackageReferenceLock_IsExistingReference)' != 'true' and '$(FlattenLockFile)' == 'true' ">
+      <PackageReference Include="$(_PackageReferenceLock_Name)" Version="[$(_PackageReferenceLock_Version)]" />
     </ItemGroup>
   </Target>
 
