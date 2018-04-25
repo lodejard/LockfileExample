@@ -129,7 +129,7 @@
       <ProjectLockFileLine3 Include="&lt;/Project&gt;" />
     </ItemGroup>
 
-    <Message Text="$(AssemblyName) -> $(ProjectLockFile)" Importance="high" />
+    <Message Text="Generating $(MSBuildProjectName) -> $(ProjectLockFile)" Importance="high" />
     <MakeDir Directories="$([System.IO.Path]::GetDirectoryName('$(ProjectLockFile)'))" />
     <WriteLinesToFile File="$(ProjectLockFile)" Lines="@(ProjectLockFileLine1);@(ProjectLockFileLine2);@(ProjectLockFileLine3)" Overwrite="true" />
   </Target>

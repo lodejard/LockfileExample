@@ -1,5 +1,5 @@
 setlocal
-del project.asserts.json /s
+del project.assets.json /s
 set ApplyLockFile=true
 set FlattenLockFile=false
 set GenerateLockFile=true
