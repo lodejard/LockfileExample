@@ -85,9 +85,37 @@
     </ItemGroup>
   </Target>
 
+
+  <UsingTask
+    TaskName="SortItemGroup"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+    <ParameterGroup>
+      <UnsortedItems ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <OrderBy Required="true" />
+      <SortedItems ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System"/>
+      <Code Type="Fragment" Language="cs">
+          <![CDATA[
+            SortedItems = new Microsoft.Build.Framework.ITaskItem[UnsortedItems.Length];
+            var Keys = new string[UnsortedItems.Length];
+            for(var index = 0; index < UnsortedItems.Length; index++)
+            {
+              SortedItems[index] = UnsortedItems[index];
+              Keys[index] = UnsortedItems[index].GetMetadata(OrderBy);
+            }
+            Array.Sort(Keys, SortedItems);
+          ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
   <Target Name="GenerateLockFile" DependsOnTargets="LoadProjectAssetsFile;FindDirectDependencies;ApplyPackageDefinitions;ApplyTargetDefinitions;ApplyPackageReference" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)">
     <ItemGroup>
       <DirectDependency>
+        <OrderBy>%(ParentTarget)/%(Identity)</OrderBy>
         <Attributes>Name="%(Name)" Version="%(Version)"</Attributes>
       </DirectDependency>
       <DirectDependency Condition=" '%(DirectDependency.ReferenceVersion)' != '' and false ">
@@ -102,11 +130,13 @@
       <DirectDependency>
         <Attributes>%(Attributes) Include="%(Identity)/%(ParentTarget)"</Attributes>
       </DirectDependency>
-      <DirectDependency Condition=" '%(DirectDependency.Type)' == 'package' and ( '%(DirectDependency.ParentPackage)' == '' or '$(FlattenLockFile)' == 'true' ) ">
+      <DirectDependency Condition=" '%(DirectDependency.Type)' == 'package' and  '%(DirectDependency.RuntimeIdentifier)' == '' and ( '%(DirectDependency.ParentPackage)' == '' or '$(FlattenLockFile)' == 'true' ) ">
         <WriteToLockFile>true</WriteToLockFile>
       </DirectDependency>
     </ItemGroup>
-
+    <SortItemGroup UnsortedItems="@(DirectDependency)" OrderBy="OrderBy">
+      <Output ItemName="SortedDirectDependency" TaskParameter="SortedItems" />
+    </SortItemGroup>
     <ItemGroup>
       <ProjectLockFileLine1 Include="&lt;Project&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;!--" />
@@ -124,7 +154,7 @@
       <ProjectLockFileLine1 Include="%20%20%20%20&lt;MsBuildAllProjects&gt;%24(MsBuildAllProjects)%3b%24(MsBuildThisFileFullPath)&lt;/MsBuildAllProjects&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;/PropertyGroup&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;ItemGroup&gt;" />
-      <ProjectLockFileLine2 Include="%20%20%20%20&lt;PackageReferenceLock %(DirectDependency.Attributes) /&gt;" Condition=" '@(DirectDependency)' != '' and '%(DirectDependency.WriteToLockFile)' == 'true' "/>
+      <ProjectLockFileLine2 Include="%20%20%20%20&lt;PackageReferenceLock %(SortedDirectDependency.Attributes) /&gt;" Condition=" '@(SortedDirectDependency)' != '' and '%(SortedDirectDependency.WriteToLockFile)' == 'true' "/>
       <ProjectLockFileLine3 Include="%20%20&lt;/ItemGroup&gt;" />
       <ProjectLockFileLine3 Include="&lt;/Project&gt;" />
     </ItemGroup>
