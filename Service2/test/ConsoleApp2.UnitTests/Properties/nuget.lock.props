@@ -18,7 +18,7 @@
     <PackageReferenceLock Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" />
     <PackageReferenceLock Name="MSTest.TestAdapter" Version="1.2.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="MSTest.TestAdapter/1.2.0/.NETCoreApp,Version=v2.0" />
     <PackageReferenceLock Name="MSTest.TestFramework" Version="1.2.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="MSTest.TestFramework/1.2.0/.NETCoreApp,Version=v2.0" />
-    <PackageReferenceAllow Include="CsvHelper" Version="6.0.3" Sha512="D3w0S+vVgro21Rpq7hCn6eB4zq+PIRKaMHh3VMrtw0eOFoXEyMuzKQQs46yFQ6Fx6mn0OTLviN3/PlWIJ/xcTQ==" />
+    <PackageReferenceAllow Include="CsvHelper" Version="6.0.0" Sha512="XuwjP4kFCA+3udv7MLPNZsIO/9LcrHYJHXmEZ8u/Z4WANcc+7efSkKTK0K0x+S9vQK5tTqrHAbi8uimuRcAu6A==" />
     <PackageReferenceAllow Include="Microsoft.CodeCoverage" Version="1.0.3" Sha512="5KfX12XPfvBomjrZv9nCBfQ6lhZdroVxXvGnY6MqzG83bjqdq6SQ3xxJFdPgHv6oli83M9oNhZlynYehjmboUg==" />
     <PackageReferenceAllow Include="Microsoft.CSharp" Version="4.4.0" Sha512="vvVR/B08YVghQ4jHEloxqw2ZWzEGE1AOA5E0DioUM3ujbXz6FD3AfB/0Jl2ohJPd0nXYGwmPe1En6HTsSriq1A==" />
     <PackageReferenceAllow Include="Microsoft.DotNet.PlatformAbstractions" Version="1.0.3" Sha512="rF92Gp5L2asYrFNf0cKNBxzzGLh1krHuj6TRDk9wdjN2qdvJLaNYOn1s9oYkMlptYX436KiEFqxhLB+I5veXvQ==" />

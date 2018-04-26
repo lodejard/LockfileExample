@@ -17,7 +17,7 @@
     <PackageReferenceLock Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" />
     <PackageReferenceLock Name="Serilog.Sinks.Console" Version="3.1.1" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Serilog.Sinks.Console/3.1.1/.NETCoreApp,Version=v2.0" />
     <PackageReferenceLock Name="Serilog.Sinks.Console" Version="3.1.1" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" Include="Serilog.Sinks.Console/3.1.1/.NETFramework,Version=v4.6.1" />
-    <PackageReferenceAllow Include="CsvHelper" Version="6.0.3" Sha512="D3w0S+vVgro21Rpq7hCn6eB4zq+PIRKaMHh3VMrtw0eOFoXEyMuzKQQs46yFQ6Fx6mn0OTLviN3/PlWIJ/xcTQ==" />
+    <PackageReferenceAllow Include="CsvHelper" Version="6.0.0" Sha512="XuwjP4kFCA+3udv7MLPNZsIO/9LcrHYJHXmEZ8u/Z4WANcc+7efSkKTK0K0x+S9vQK5tTqrHAbi8uimuRcAu6A==" />
     <PackageReferenceAllow Include="Microsoft.CSharp" Version="4.4.0" Sha512="vvVR/B08YVghQ4jHEloxqw2ZWzEGE1AOA5E0DioUM3ujbXz6FD3AfB/0Jl2ohJPd0nXYGwmPe1En6HTsSriq1A==" />
     <PackageReferenceAllow Include="Microsoft.NETCore.App" Version="2.0.0" Sha512="/mzXF+UtZef+VpzzN88EpvFq5U6z4rj54ZMq/J968H6pcvyLOmcupmTRpJ3CJm8ILoCGh9WI7qpDdiKtuzswrQ==" />
     <PackageReferenceAllow Include="Microsoft.NETCore.DotNetAppHost" Version="2.0.0" Sha512="L4GGkcI/Mxl8PKLRpFdGmLb5oI8sGIR05bDTGkzCoamAjdUl1Zhkov2swjEsZvKYT8kkdiz39LtwyGYuCJxm1A==" />

@@ -23,6 +23,7 @@
       Ensure that all of the packages being used are allowed
     -->
     <VerifyLockFile Condition=" '$(VerifyLockFile)' == '' ">false</VerifyLockFile>
+
   </PropertyGroup>
 
   <!-- COMMON TARGETS -->
@@ -148,7 +149,7 @@
     <GenerateLockFileDependsOn>LoadProjectAssetsFile;JoinPackageDefinitions;JoinTargetDefinitions;$(GenerateLockFileDependsOn);</GenerateLockFileDependsOn>
   </PropertyGroup>
 
-  <Target Name="GenerateLockFile" DependsOnTargets="$(GenerateLockFileDependsOn)" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)-">
+  <Target Name="GenerateLockFile" DependsOnTargets="$(GenerateLockFileDependsOn)" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)$(RegenerateLockFile)">
     <Message Text="%(MoreDefinitions.Identity) %(MoreDefinitions.Sha512)" Importance="high" />
     
     <ItemGroup>
@@ -237,7 +238,7 @@
 
   <Target Name="VerifyLockFileBeforeBuild" DependsOnTargets="VerifyLockFile" AfterTargets="BeforeBuild" Condition=" '$(VerifyLockFile)' == 'true' and Exists('$(ProjectLockFile)') " />
 
-  <Target Name="VerifyLockFile" DependsOnTargets="CalculateAssets;VerifyLockFilePackageReferenceAllow" AfterTargets="BeforeBuild">
+  <Target Name="VerifyLockFile" DependsOnTargets="CalculateAssets;VerifyLockFilePackageReferenceAllow">
     <ItemGroup>
       <PackagesNotAllowed Include="@(AssetsPackageDefinitions)" 
         Condition=" '%(AssetsPackageDefinitions.Type)' == 'package' and ('%(AssetsPackageDefinitions.Allowed)' != 'true' or '%(AssetsPackageDefinitions.Denied)' == 'true') ">
@@ -250,7 +251,7 @@
       Condition=" '@(PackagesNotAllowed)' != '' "  />
 
     <Error 
-      Text="All packages must be listed as &lt;PackageReferenceAllow Include Version Sha512 /&gt;."
+      Text="Some packages are not listed as allowed."
       Condition=" '@(PackagesNotAllowed)' != '' " />
   </Target>
 
