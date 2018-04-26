@@ -12,23 +12,31 @@
       have any net effect but will prevent re-writing.
     -->
 
-    <!-- on a build server default -->
+    <!-- on a build server 
+      direct dependencies are locked, 
+      all resulting Id/Version/Sha512 combinations must be allowed,
+      and lock files are not created or updated 
+    -->
     <When Condition=" '$(BUILD_BUILDID)' != '' ">
       <PropertyGroup>
         <!-- do not attempt to create or update nuget.lock.props files -->
         <ApplyLockFile Condition=" '$(ApplyLockFile)' == '' " >true</ApplyLockFile>
         <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >false</GenerateLockFile>
-        <FlattenLockFile Condition=" '$(FlattenLockFile)' == '' " >false</FlattenLockFile>
+        <VerifyLockFile Condition=" '$(VerifyLockFile)' == '' " >true</VerifyLockFile>
       </PropertyGroup>
     </When>
 
-    <!-- on a developer workstation -->
+    <!-- on a developer workstation 
+      direct dependencies are locked
+      lock files are created or updated as needed
+      Id/Version/Sha512 combinations resulting from restore considered allowed
+    -->
     <Otherwise>
       <PropertyGroup>
         <!-- nuget.lock.props file should be updated automatically when project.assets.json changes -->
         <ApplyLockFile Condition=" '$(ApplyLockFile)' == '' " >true</ApplyLockFile>
         <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >true</GenerateLockFile>
-        <FlattenLockFile Condition=" '$(FlattenLockFile)' == '' " >false</FlattenLockFile>
+        <VerifyLockFile Condition=" '$(VerifyLockFile)' == '' " >false</VerifyLockFile>
       </PropertyGroup>
     </Otherwise>
   </Choose>

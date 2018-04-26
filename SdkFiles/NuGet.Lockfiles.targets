@@ -20,71 +20,62 @@
     <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' ">false</GenerateLockFile>
 
     <!--
-      Setting this has two effects. It includes the transitive package versions in the generated lock file - and it adds
-      each of those packages as <PackageReference> for the purpose of restore and VS display.
+      Ensure that all of the packages being used are allowed
     -->
-    <FlattenLockFile Condition=" '$(FlattenLockFile)' == '' ">false</FlattenLockFile>
+    <VerifyLockFile Condition=" '$(VerifyLockFile)' == '' ">false</VerifyLockFile>
   </PropertyGroup>
 
+  <!-- COMMON TARGETS -->
+
   <UsingTask TaskName="Microsoft.NET.Build.Tasks.ResolvePackageDependencies" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
+  
   <Target Name="LoadProjectAssetsFile">
     <ResolvePackageDependencies ProjectPath="$(MSBuildProjectFullPath)" ProjectAssetsFile="$(ProjectAssetsFile)" ProjectLanguage="$(Language)" ContinueOnError="ErrorAndContinue">
-      <Output TaskParameter="TargetDefinitions" ItemName="LockTargetDefinitions" />
-      <Output TaskParameter="PackageDefinitions" ItemName="LockPackageDefinitions" />
-      <Output TaskParameter="PackageDependencies" ItemName="LockPackageDependencies" />
+      <Output TaskParameter="TargetDefinitions" ItemName="AssetsTargetDefinitions" />
+      <Output TaskParameter="PackageDefinitions" ItemName="AssetsPackageDefinitionsTemp" />
+      <Output TaskParameter="PackageDependencies" ItemName="AssetsPackageDependencies" />
     </ResolvePackageDependencies>
-
-    <!--<Message Text="LockPackageDependencies:%(LockPackageDependencies.Identity) ParentTarget:%(LockPackageDependencies.ParentTarget) ParentPackage:%(LockPackageDependencies.ParentPackage)" Importance="high" />-->
-  </Target>
-
-  <Target Name="FindDirectDependencies">
+    <ResolvePackageDependenciesMore ProjectAssetsFile="$(ProjectAssetsFile)" InputPackageDefinitions="@(AssetsPackageDefinitionsTemp)">
+      <Output TaskParameter="OutputPackageDefinitions" ItemName="AssetsPackageDefinitions" />
+    </ResolvePackageDependenciesMore>
     <ItemGroup>
-      <DirectDependency Include="@(LockPackageDependencies)" />
+      <EveryDependency Include="@(AssetsPackageDependencies)" />
     </ItemGroup>
   </Target>
 
-  <Target Name="ApplyPackageDefinitions" Inputs="@(LockPackageDefinitions)" Outputs="%(LockPackageDefinitions.Identity)">
+  <Target Name="JoinPackageDefinitions" Inputs="@(AssetsPackageDefinitions)" Outputs="%(AssetsPackageDefinitions.Identity)">
     <PropertyGroup>
-      <_PackageDefinitions_Identity>%(LockPackageDefinitions.Identity)</_PackageDefinitions_Identity>
-      <_PackageDefinitions_Type>%(LockPackageDefinitions.Type)</_PackageDefinitions_Type>
-      <_PackageDefinitions_Name>%(LockPackageDefinitions.Name)</_PackageDefinitions_Name>
-      <_PackageDefinitions_Version>%(LockPackageDefinitions.Version)</_PackageDefinitions_Version>
+      <_PackageDefinitions_Identity>%(AssetsPackageDefinitions.Identity)</_PackageDefinitions_Identity>
+      <_PackageDefinitions_Type>%(AssetsPackageDefinitions.Type)</_PackageDefinitions_Type>
+      <_PackageDefinitions_Name>%(AssetsPackageDefinitions.Name)</_PackageDefinitions_Name>
+      <_PackageDefinitions_Version>%(AssetsPackageDefinitions.Version)</_PackageDefinitions_Version>
+      <_PackageDefinitions_Sha512>%(AssetsPackageDefinitions.Sha512)</_PackageDefinitions_Sha512>
     </PropertyGroup>
     <ItemGroup>
-      <DirectDependency Condition=" '%(Identity)' == '$(_PackageDefinitions_Identity)' ">
+      <EveryDependency Condition=" '%(Identity)' == '$(_PackageDefinitions_Identity)' ">
         <Type>$(_PackageDefinitions_Type)</Type>
         <Name>$(_PackageDefinitions_Name)</Name>
         <Version>$(_PackageDefinitions_Version)</Version>
-      </DirectDependency>
+        <Sha512>$(_PackageDefinitions_Sha512)</Sha512>
+      </EveryDependency>
     </ItemGroup>
   </Target>
 
-  <Target Name="ApplyTargetDefinitions" Inputs="@(LockTargetDefinitions)" Outputs="%(LockTargetDefinitions.Identity)">
+  <Target Name="JoinTargetDefinitions" Inputs="@(AssetsTargetDefinitions)" Outputs="%(AssetsTargetDefinitions.Identity)">
     <PropertyGroup>
-      <_TargetDefinitions_Identity>%(LockTargetDefinitions.Identity)</_TargetDefinitions_Identity>
-      <_TargetDefinitions_TargetFrameworkMoniker>%(LockTargetDefinitions.TargetFrameworkMoniker)</_TargetDefinitions_TargetFrameworkMoniker>
-      <_TargetDefinitions_RuntimeIdentifier>%(LockTargetDefinitions.RuntimeIdentifier)</_TargetDefinitions_RuntimeIdentifier>
+      <_TargetDefinitions_Identity>%(AssetsTargetDefinitions.Identity)</_TargetDefinitions_Identity>
+      <_TargetDefinitions_TargetFrameworkMoniker>%(AssetsTargetDefinitions.TargetFrameworkMoniker)</_TargetDefinitions_TargetFrameworkMoniker>
+      <_TargetDefinitions_RuntimeIdentifier>%(AssetsTargetDefinitions.RuntimeIdentifier)</_TargetDefinitions_RuntimeIdentifier>
     </PropertyGroup>
     <ItemGroup>
-      <DirectDependency Condition=" '%(ParentTarget)' == '$(_TargetDefinitions_Identity)' ">
+      <EveryDependency Condition=" '%(ParentTarget)' == '$(_TargetDefinitions_Identity)' ">
         <TargetFrameworkMoniker>$(_TargetDefinitions_TargetFrameworkMoniker)</TargetFrameworkMoniker>
         <RuntimeIdentifier>$(_TargetDefinitions_RuntimeIdentifier)</RuntimeIdentifier>
-      </DirectDependency>
+      </EveryDependency>
     </ItemGroup>
   </Target>
 
-  <Target Name="ApplyPackageReference" DependsOnTargets="CollectPackageReferences" Inputs="@(PackageReference)" Outputs="%(PackageReference.Identity)">
-    <PropertyGroup>
-      <_PackageReference_Identity>%(PackageReference.Identity)</_PackageReference_Identity>
-      <_PackageReference_Version>%(PackageReference.Version)</_PackageReference_Version>
-    </PropertyGroup>
-    <ItemGroup>
-      <DirectDependency Condition=" '%(Name)' == '$(_PackageReference_Identity)' ">
-        <ReferenceVersion>$(_PackageReference_Version)</ReferenceVersion>
-      </DirectDependency>
-    </ItemGroup>
-  </Target>
-
+  <Target Name="CalculateAssets" DependsOnTargets="LoadProjectAssetsFile;JoinPackageDefinitions;JoinTargetDefinitions" />
 
   <UsingTask
     TaskName="SortItemGroup"
@@ -112,30 +103,74 @@
     </Task>
   </UsingTask>
 
-  <Target Name="GenerateLockFile" DependsOnTargets="LoadProjectAssetsFile;FindDirectDependencies;ApplyPackageDefinitions;ApplyTargetDefinitions;ApplyPackageReference" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)">
+   <UsingTask
+    TaskName="ResolvePackageDependenciesMore"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+    <ParameterGroup>
+      <ProjectAssetsFile Required="true" />
+      <InputPackageDefinitions ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <OutputPackageDefinitions ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+    </ParameterGroup>
+    <Task>
+    <!-- <ResolvePackageDependenciesMore ProjectAssetsFile="$(ProjectAssetsFile)" InputPackageDefinitions="@(AssetsPackageDefinitionsTemp)">
+      <Output TaskParameter="OutputPackageDefinitions" ItemName="AssetsPackageDefinitions" />
+    </ResolvePackageDependenciesMore> -->
+      <Reference Include="C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\newtonsoft.json\9.0.1\lib\net45\Newtonsoft.Json.dll" />
+      <Using Namespace="System"/>
+      <Using Namespace="System.IO"/>
+      <Using Namespace="System.Collections.Generic"/>
+      <Using Namespace="Newtonsoft.Json"/>
+      <Using Namespace="Newtonsoft.Json.Linq"/>
+      <Code Type="Fragment" Language="cs">
+          <![CDATA[
+            OutputPackageDefinitions = InputPackageDefinitions;
+
+            var jsonText = File.ReadAllText(ProjectAssetsFile);
+            var assets = JToken.Parse(jsonText);
+
+            foreach(var definition in OutputPackageDefinitions)
+            {
+              // Log.LogWarning(definition.ItemSpec); 
+              var libraries = assets["libraries"]; 
+              var library = libraries[definition.ItemSpec]; 
+              var sha512 = library.Value<string>("sha512");
+              definition.SetMetadata("Sha512", sha512);
+            } 
+          ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <!-- GENERATE -->
+
+  <PropertyGroup>
+    <GenerateLockFileDependsOn>LoadProjectAssetsFile;JoinPackageDefinitions;JoinTargetDefinitions;$(GenerateLockFileDependsOn);</GenerateLockFileDependsOn>
+  </PropertyGroup>
+
+  <Target Name="GenerateLockFile" DependsOnTargets="$(GenerateLockFileDependsOn)" Inputs="$(ProjectAssetsFile)" Outputs="$(ProjectLockFile)-">
+    <Message Text="%(MoreDefinitions.Identity) %(MoreDefinitions.Sha512)" Importance="high" />
+    
     <ItemGroup>
-      <DirectDependency>
-        <OrderBy>%(ParentTarget)/%(Identity)</OrderBy>
-        <Attributes>Name="%(Name)" Version="%(Version)"</Attributes>
-      </DirectDependency>
-      <DirectDependency Condition=" '%(DirectDependency.ReferenceVersion)' != '' and false ">
-        <Attributes>%(Attributes) ReferenceVersion="%(DirectDependency.ReferenceVersion)"</Attributes>
-      </DirectDependency>
-      <DirectDependency Condition=" '%(DirectDependency.TargetFrameworkMoniker)' != '' ">
-        <Attributes>%(Attributes) TargetFrameworkMoniker="%(DirectDependency.TargetFrameworkMoniker)"</Attributes>
-      </DirectDependency>
-      <DirectDependency Condition=" '%(DirectDependency.RuntimeIdentifier)' != '' ">
-        <Attributes>%(Attributes) RuntimeIdentifier="%(DirectDependency.RuntimeIdentifier)"</Attributes>
-      </DirectDependency>
-      <DirectDependency>
+      <DependenciesToLock Include="@(EveryDependency)" Condition=" '%(Type)' == 'package' and '%(ParentPackage)' == '' and '%(RuntimeIdentifier)' == '' ">
+        <OrderBy>%(Name) %(Version) %(TargetFrameworkMoniker)</OrderBy>
+        <Attributes>Name="%(Name)" Version="%(Version)" TargetFrameworkMoniker="%(TargetFrameworkMoniker)"</Attributes>
+      </DependenciesToLock>
+      <DependenciesToLock>
         <Attributes>%(Attributes) Include="%(Identity)/%(ParentTarget)"</Attributes>
-      </DirectDependency>
-      <DirectDependency Condition=" '%(DirectDependency.Type)' == 'package' and  '%(DirectDependency.RuntimeIdentifier)' == '' and ( '%(DirectDependency.ParentPackage)' == '' or '$(FlattenLockFile)' == 'true' ) ">
-        <WriteToLockFile>true</WriteToLockFile>
-      </DirectDependency>
+      </DependenciesToLock>
+
+      <DependenciesToAllow Include="@(EveryDependency)" Condition=" '%(Type)' == 'package' ">
+        <OrderBy>%(Name) %(Version) %(Sha512)</OrderBy>
+        <Attributes>Include="%(Name)" Version="%(Version)" Sha512="%(Sha512)"</Attributes>
+      </DependenciesToAllow>
     </ItemGroup>
-    <SortItemGroup UnsortedItems="@(DirectDependency)" OrderBy="OrderBy">
-      <Output ItemName="SortedDirectDependency" TaskParameter="SortedItems" />
+
+    <SortItemGroup UnsortedItems="@(DependenciesToLock)" OrderBy="OrderBy">
+      <Output ItemName="SortedDependenciesToLock" TaskParameter="SortedItems" />
+    </SortItemGroup>
+    <SortItemGroup UnsortedItems="@(DependenciesToAllow)" OrderBy="OrderBy">
+      <Output ItemName="SortedDependenciesToAllow" TaskParameter="SortedItems" />
     </SortItemGroup>
     <ItemGroup>
       <ProjectLockFileLine1 Include="&lt;Project&gt;" />
@@ -154,14 +189,15 @@
       <ProjectLockFileLine1 Include="%20%20%20%20&lt;MsBuildAllProjects&gt;%24(MsBuildAllProjects)%3b%24(MsBuildThisFileFullPath)&lt;/MsBuildAllProjects&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;/PropertyGroup&gt;" />
       <ProjectLockFileLine1 Include="%20%20&lt;ItemGroup&gt;" />
-      <ProjectLockFileLine2 Include="%20%20%20%20&lt;PackageReferenceLock %(SortedDirectDependency.Attributes) /&gt;" Condition=" '@(SortedDirectDependency)' != '' and '%(SortedDirectDependency.WriteToLockFile)' == 'true' "/>
-      <ProjectLockFileLine3 Include="%20%20&lt;/ItemGroup&gt;" />
-      <ProjectLockFileLine3 Include="&lt;/Project&gt;" />
+      <ProjectLockFileLine2 Include="%20%20%20%20&lt;PackageReferenceLock %(SortedDependenciesToLock.Attributes) /&gt;" Condition=" '@(SortedDependenciesToLock)' != '' " />
+      <ProjectLockFileLine3 Include="%20%20%20%20&lt;PackageReferenceAllow %(SortedDependenciesToAllow.Attributes) /&gt;" Condition=" '@(SortedDependenciesToAllow)' != '' " />
+      <ProjectLockFileLine4 Include="%20%20&lt;/ItemGroup&gt;" />
+      <ProjectLockFileLine4 Include="&lt;/Project&gt;" />
     </ItemGroup>
 
     <Message Text="Generating $(MSBuildProjectName) -> $(ProjectLockFile)" Importance="high" />
     <MakeDir Directories="$([System.IO.Path]::GetDirectoryName('$(ProjectLockFile)'))" />
-    <WriteLinesToFile File="$(ProjectLockFile)" Lines="@(ProjectLockFileLine1);@(ProjectLockFileLine2);@(ProjectLockFileLine3)" Overwrite="true" />
+    <WriteLinesToFile File="$(ProjectLockFile)" Lines="@(ProjectLockFileLine1);@(ProjectLockFileLine2);@(ProjectLockFileLine3);@(ProjectLockFileLine4)" Overwrite="true" />
   </Target>
 
   <Target Name="GenerateLockFileAfterBuild" DependsOnTargets="GenerateLockFile" AfterTargets="AfterBuild" Condition=" '$(GenerateLockFile)' == 'true' and ('$(DesignTimeBuild)' != 'true' Or Exists('$(ProjectAssetsFile)')) ">
@@ -171,6 +207,8 @@
   <Target Name="GenerateLockFileAfterRestore" DependsOnTargets="GenerateLockFile" AfterTargets="Restore" Condition=" '$(GenerateLockFile)' == 'true' and ('$(DesignTimeBuild)' != 'true' Or Exists('$(ProjectAssetsFile)')) ">
     <!--<Message Text="GenerateLockFileAfterCoreCompile" Importance="high" />-->
   </Target>
+
+  <!-- VERIFY -->
 
   <Target Name="ApplyLockFile" DependsOnTargets="ApplyLockFilePerPackage" BeforeTargets="CollectPackageReferences" Condition=" '$(ApplyLockFile)' == 'true' ">
     <!--<Message Text="ApplyLockFile" Importance="high" />-->
@@ -197,5 +235,27 @@
     </ItemGroup>
   </Target>
 
+  <!-- VERIFY -->
+
+  <Target Name="VerifyLockFileBeforeBuild" DependsOnTargets="VerifyLockFile" AfterTargets="BeforeBuild" Condition=" '$(VerifyLockFile)' == 'true' "/>
+
+  <Target Name="VerifyLockFile" DependsOnTargets="CalculateAssets;VerifyLockFilePackageReferenceAllow" AfterTargets="BeforeBuild">
+    <Warning 
+      Text="AssetsPackageDefinitions:%(AssetsPackageDefinitions.Identity)" 
+      Condition=" '%(AssetsPackageDefinitions.Type)' == 'package' and ('%(AssetsPackageDefinitions.Allowed)' != 'true' or '%(AssetsPackageDefinitions.Denied)' == 'true') "  />
+  </Target>
+
+  <Target Name="VerifyLockFilePackageReferenceAllow" Inputs="@(PackageReferenceAllow)" Outputs="%(PackageReferenceAllow->'%(Identity)/%(Version)/%(Sha512)')">
+    <PropertyGroup>
+      <_PackageReferenceAllow_Name>%(PackageReferenceAllow.Identity)</_PackageReferenceAllow_Name>
+      <_PackageReferenceAllow_Version>%(PackageReferenceAllow.Version)</_PackageReferenceAllow_Version>
+      <_PackageReferenceAllow_Sha512>%(PackageReferenceAllow.Sha512)</_PackageReferenceAllow_Sha512>
+    </PropertyGroup>
+    <ItemGroup>
+      <AssetsPackageDefinitions Condition=" '%(Identity)' == '$(_PackageReferenceAllow_Name)/$(_PackageReferenceAllow_Version)' and '%(Sha512)' == '$(_PackageReferenceAllow_Sha512)' ">
+        <Allowed>true</Allowed>
+      </AssetsPackageDefinitions>
+    </ItemGroup>
+  </Target>
 
 </Project>

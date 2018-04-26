@@ -17,5 +17,10 @@
     <PackageReferenceLock Name="CsvHelper" Version="6.0.3" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" Include="CsvHelper/6.0.3/.NETFramework,Version=v4.6.1" />
     <PackageReferenceLock Name="CsvHelper" Version="6.0.3" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="CsvHelper/6.0.3/.NETStandard,Version=v2.0" />
     <PackageReferenceLock Name="NETStandard.Library" Version="2.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="NETStandard.Library/2.0.1/.NETStandard,Version=v2.0" />
+    <PackageReferenceAllow Include="CsvHelper" Version="6.0.3" Sha512="D3w0S+vVgro21Rpq7hCn6eB4zq+PIRKaMHh3VMrtw0eOFoXEyMuzKQQs46yFQ6Fx6mn0OTLviN3/PlWIJ/xcTQ==" />
+    <PackageReferenceAllow Include="Microsoft.CSharp" Version="4.4.0" Sha512="vvVR/B08YVghQ4jHEloxqw2ZWzEGE1AOA5E0DioUM3ujbXz6FD3AfB/0Jl2ohJPd0nXYGwmPe1En6HTsSriq1A==" />
+    <PackageReferenceAllow Include="Microsoft.NETCore.Platforms" Version="1.1.0" Sha512="kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==" />
+    <PackageReferenceAllow Include="NETStandard.Library" Version="2.0.1" Sha512="oA6nwv9MhEKYvLpjZ0ggSpb1g4CQViDVQjLUcDWg598jtvJbpfeP2reqwI1GLW2TbxC/Ml7xL6BBR1HmKPXlTg==" />
+    <PackageReferenceAllow Include="System.Reflection.TypeExtensions" Version="4.4.0" Sha512="dkmh/ySlwnXJp/1qYP9uyKkCK1CXR/REFzl7abHcArxBcV91mY2CgrrzSRA5Z/X4MevJWwXsklGRdR3A7K9zbg==" />
   </ItemGroup>
 </Project>

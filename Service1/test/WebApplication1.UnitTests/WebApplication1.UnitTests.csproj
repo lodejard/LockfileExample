@@ -13,10 +13,6 @@
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.*" />
-
-    <!-- workaround for transitive lock restore... the runtime packages depend on 4.3.0, but the
-    compile time packages only depend on 4.1.0... Depending on 4.3.0 directly avoids an unintentional downgrade -->
-    <PackageReference Include="System.Diagnostics.Tracing" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
