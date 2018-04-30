@@ -155,12 +155,8 @@
     <ItemGroup>
       <DependenciesToLock Include="@(EveryDependency)" Condition=" '%(Type)' == 'package' and '%(ParentPackage)' == '' and '%(RuntimeIdentifier)' == '' ">
         <OrderBy>%(Name) %(Version) %(TargetFrameworkMoniker)</OrderBy>
-        <Attributes>Name="%(Name)" Version="%(Version)" TargetFrameworkMoniker="%(TargetFrameworkMoniker)"</Attributes>
+        <Attributes>Include="%(Name)" Version="%(Version)" TargetFrameworkMoniker="%(TargetFrameworkMoniker)"</Attributes>
       </DependenciesToLock>
-      <DependenciesToLock>
-        <Attributes>%(Attributes) Include="%(Identity)/%(ParentTarget)"</Attributes>
-      </DependenciesToLock>
-
       <DependenciesToAllow Include="@(EveryDependency)" Condition=" '%(Type)' == 'package' ">
         <OrderBy>%(Name) %(Version) %(Sha512)</OrderBy>
         <Attributes>Include="%(Name)" Version="%(Version)" Sha512="%(Sha512)"</Attributes>
@@ -213,24 +209,17 @@
 
   <Target Name="ApplyLockFile" DependsOnTargets="ApplyLockFilePerPackage" BeforeTargets="CollectPackageReferences" Condition=" '$(ApplyLockFile)' == 'true' and Exists('$(ProjectLockFile)') " />
 
-  <Target Name="ApplyLockFilePerPackage" Inputs="@(PackageReferenceLock)" Outputs="%(PackageReferenceLock.Identity)">
+  <Target Name="ApplyLockFilePerPackage" Inputs="@(PackageReferenceLock)" Outputs="%(PackageReferenceLock.Identity)/%(PackageReferenceLock.Version)/%(PackageReferenceLock.TargetFrameworkMoniker)">
     <PropertyGroup>
-      <_PackageReferenceLock_Name>%(PackageReferenceLock.Name)</_PackageReferenceLock_Name>
+      <_PackageReferenceLock_Identity>%(PackageReferenceLock.Identity)</_PackageReferenceLock_Identity>
       <_PackageReferenceLock_Version>%(PackageReferenceLock.Version)</_PackageReferenceLock_Version>
       <_PackageReferenceLock_TargetFrameworkMoniker>%(PackageReferenceLock.TargetFrameworkMoniker)</_PackageReferenceLock_TargetFrameworkMoniker>
-      <_PackageReferenceLock_RuntimeIdentifier>%(PackageReferenceLock.RuntimeIdentifier)</_PackageReferenceLock_RuntimeIdentifier>
 
-      <_PackageReferenceLock_IsCorrectContext Condition=" '$(_PackageReferenceLock_TargetFrameworkMoniker)' == '$(TargetFrameworkMoniker)' and '$(_PackageReferenceLock_RuntimeIdentifier)' == '' ">true</_PackageReferenceLock_IsCorrectContext>
-      <_PackageReferenceLock_IsExistingReference Condition=" '%(PackageReference.Identity)' == '$(_PackageReferenceLock_Name)' ">true</_PackageReferenceLock_IsExistingReference>
+      <_PackageReferenceLock_IsCorrectContext Condition=" '$(_PackageReferenceLock_TargetFrameworkMoniker)' == '$(TargetFrameworkMoniker)' ">true</_PackageReferenceLock_IsCorrectContext>
     </PropertyGroup>
 
-    <!--<Message Text="_PackageReferenceLock_Name=$(_PackageReferenceLock_Name) IsCorrectContext=$(_PackageReferenceLock_IsCorrectContext) IsExistingReference=$(_PackageReferenceLock_IsExistingReference)" Importance="high" />-->
-
-    <ItemGroup Condition=" '$(_PackageReferenceLock_IsCorrectContext)' == 'true' and '$(_PackageReferenceLock_IsExistingReference)' == 'true' ">
-      <PackageReference  Version="$(_PackageReferenceLock_Version)" Condition=" '%(Identity)' == '$(_PackageReferenceLock_Name)' " />
-    </ItemGroup>
-    <ItemGroup Condition=" '$(_PackageReferenceLock_IsCorrectContext)' == 'true' and '$(_PackageReferenceLock_IsExistingReference)' != 'true' and '$(FlattenLockFile)' == 'true' ">
-      <PackageReference Include="$(_PackageReferenceLock_Name)" Version="$(_PackageReferenceLock_Version)" />
+    <ItemGroup Condition=" '$(_PackageReferenceLock_TargetFrameworkMoniker)' == '$(TargetFrameworkMoniker)' ">
+      <PackageReference  Version="$(_PackageReferenceLock_Version)" Condition=" '%(Identity)' == '$(_PackageReferenceLock_Identity)' " />
     </ItemGroup>
   </Target>
 
@@ -257,12 +246,12 @@
 
   <Target Name="VerifyLockFilePackageReferenceAllow" Inputs="@(PackageReferenceAllow)" Outputs="%(PackageReferenceAllow->'%(Identity)/%(Version)/%(Sha512)')">
     <PropertyGroup>
-      <_PackageReferenceAllow_Name>%(PackageReferenceAllow.Identity)</_PackageReferenceAllow_Name>
+      <_PackageReferenceAllow_Identity>%(PackageReferenceAllow.Identity)</_PackageReferenceAllow_Identity>
       <_PackageReferenceAllow_Version>%(PackageReferenceAllow.Version)</_PackageReferenceAllow_Version>
       <_PackageReferenceAllow_Sha512>%(PackageReferenceAllow.Sha512)</_PackageReferenceAllow_Sha512>
     </PropertyGroup>
     <ItemGroup>
-      <AssetsPackageDefinitions Condition=" '%(Identity)' == '$(_PackageReferenceAllow_Name)/$(_PackageReferenceAllow_Version)' and '%(Sha512)' == '$(_PackageReferenceAllow_Sha512)' ">
+      <AssetsPackageDefinitions Condition=" '%(Identity)' == '$(_PackageReferenceAllow_Identity)/$(_PackageReferenceAllow_Version)' and '%(Sha512)' == '$(_PackageReferenceAllow_Sha512)' ">
         <Allowed>true</Allowed>
       </AssetsPackageDefinitions>
     </ItemGroup>

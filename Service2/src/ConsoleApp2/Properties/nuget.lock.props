@@ -14,10 +14,10 @@
     <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReferenceLock Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" />
-    <PackageReferenceLock Name="Serilog.Sinks.Console" Version="3.1.1" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Serilog.Sinks.Console/3.1.1/.NETCoreApp,Version=v2.0" />
-    <PackageReferenceLock Name="Serilog.Sinks.Console" Version="3.1.1" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" Include="Serilog.Sinks.Console/3.1.1/.NETFramework,Version=v4.6.1" />
-    <PackageReferenceAllow Include="CsvHelper" Version="6.0.0" Sha512="XuwjP4kFCA+3udv7MLPNZsIO/9LcrHYJHXmEZ8u/Z4WANcc+7efSkKTK0K0x+S9vQK5tTqrHAbi8uimuRcAu6A==" />
+    <PackageReferenceLock Include="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Include="Serilog.Sinks.Console" Version="3.1.1" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Include="Serilog.Sinks.Console" Version="3.1.1" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" />
+    <PackageReferenceAllow Include="CsvHelper" Version="6.0.1" Sha512="z1PiHMR+ilh7/B7yOVYv1adUYUOUbDf/ICra8uUPLdq7PpbBAkv2a+OF+kN9aJTpzMhOvxCOAlKGAxHQ4iA0Jw==" />
     <PackageReferenceAllow Include="Microsoft.CSharp" Version="4.4.0" Sha512="vvVR/B08YVghQ4jHEloxqw2ZWzEGE1AOA5E0DioUM3ujbXz6FD3AfB/0Jl2ohJPd0nXYGwmPe1En6HTsSriq1A==" />
     <PackageReferenceAllow Include="Microsoft.NETCore.App" Version="2.0.0" Sha512="/mzXF+UtZef+VpzzN88EpvFq5U6z4rj54ZMq/J968H6pcvyLOmcupmTRpJ3CJm8ILoCGh9WI7qpDdiKtuzswrQ==" />
     <PackageReferenceAllow Include="Microsoft.NETCore.DotNetAppHost" Version="2.0.0" Sha512="L4GGkcI/Mxl8PKLRpFdGmLb5oI8sGIR05bDTGkzCoamAjdUl1Zhkov2swjEsZvKYT8kkdiz39LtwyGYuCJxm1A==" />

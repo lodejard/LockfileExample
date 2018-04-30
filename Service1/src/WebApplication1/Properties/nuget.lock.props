@@ -14,9 +14,9 @@
     <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReferenceLock Name="Microsoft.AspNetCore.All" Version="2.0.6" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Microsoft.AspNetCore.All/2.0.6/.NETCoreApp,Version=v2.0" />
-    <PackageReferenceLock Name="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" Include="Microsoft.NETCore.App/2.0.0/.NETCoreApp,Version=v2.0" />
-    <PackageReferenceAllow Include="CsvHelper" Version="6.0.0" Sha512="XuwjP4kFCA+3udv7MLPNZsIO/9LcrHYJHXmEZ8u/Z4WANcc+7efSkKTK0K0x+S9vQK5tTqrHAbi8uimuRcAu6A==" />
+    <PackageReferenceLock Include="Microsoft.AspNetCore.All" Version="2.0.6" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceLock Include="Microsoft.NETCore.App" Version="2.0.0" TargetFrameworkMoniker=".NETCoreApp,Version=v2.0" />
+    <PackageReferenceAllow Include="CsvHelper" Version="6.0.1" Sha512="z1PiHMR+ilh7/B7yOVYv1adUYUOUbDf/ICra8uUPLdq7PpbBAkv2a+OF+kN9aJTpzMhOvxCOAlKGAxHQ4iA0Jw==" />
     <PackageReferenceAllow Include="Libuv" Version="1.10.0" Sha512="GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==" />
     <PackageReferenceAllow Include="Microsoft.ApplicationInsights" Version="2.4.0" Sha512="4dX/zu3Psz9oM3ErU64xfOHuSxOwMxN6q5RabSkeYbX42Yn6dR/kDToqjs+txCRjrfHUxyYjfeJHu+MbCfvAsg==" />
     <PackageReferenceAllow Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" Sha512="kiGmzl9Cav34dF7AHVMoJxdJJQEeLB8KZGNwX1LjImG9iem5hGk4DkHpW7/m9Nh3DrL8IKSL3mqQo+IPqWfMRQ==" />

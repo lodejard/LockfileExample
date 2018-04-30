@@ -21,8 +21,8 @@
       <PropertyGroup>
         <!-- do not attempt to create or update nuget.lock.props files -->
         <ApplyLockFile Condition=" '$(ApplyLockFile)' == '' " >true</ApplyLockFile>
-        <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >false</GenerateLockFile>
         <VerifyLockFile Condition=" '$(VerifyLockFile)' == '' " >true</VerifyLockFile>
+        <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >false</GenerateLockFile>
       </PropertyGroup>
     </When>
 
@@ -35,10 +35,22 @@
       <PropertyGroup>
         <!-- nuget.lock.props file should be updated automatically when project.assets.json changes -->
         <ApplyLockFile Condition=" '$(ApplyLockFile)' == '' " >true</ApplyLockFile>
-        <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >true</GenerateLockFile>
         <VerifyLockFile Condition=" '$(VerifyLockFile)' == '' " >false</VerifyLockFile>
+        <GenerateLockFile Condition=" '$(GenerateLockFile)' == '' " >true</GenerateLockFile>
       </PropertyGroup>
     </Otherwise>
   </Choose>
 
+  <!-- Centralized package version management -->
+  <ItemGroup>
+    <PackageReferenceLock Include="CsvHelper" Version="6.0.1" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" />
+    <PackageReferenceLock Include="CsvHelper" Version="6.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" />
+  </ItemGroup>
+
+  <!-- Centrally package verification information -->
+  <ItemGroup>
+    <PackageReferenceAllow Include="CsvHelper" Version="6.0.1" Sha512="z1PiHMR+ilh7/B7yOVYv1adUYUOUbDf/ICra8uUPLdq7PpbBAkv2a+OF+kN9aJTpzMhOvxCOAlKGAxHQ4iA0Jw==" />
+    <PackageReferenceAllow Include="System.Reflection.TypeExtensions" Version="4.4.0" Sha512="dkmh/ySlwnXJp/1qYP9uyKkCK1CXR/REFzl7abHcArxBcV91mY2CgrrzSRA5Z/X4MevJWwXsklGRdR3A7K9zbg==" />
+  </ItemGroup>
+  
 </Project>

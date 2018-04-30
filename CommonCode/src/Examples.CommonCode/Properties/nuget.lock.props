@@ -14,10 +14,10 @@
     <MsBuildAllProjects>$(MsBuildAllProjects);$(MsBuildThisFileFullPath)</MsBuildAllProjects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReferenceLock Name="CsvHelper" Version="6.0.0" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" Include="CsvHelper/6.0.0/.NETFramework,Version=v4.6.1" />
-    <PackageReferenceLock Name="CsvHelper" Version="6.0.0" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="CsvHelper/6.0.0/.NETStandard,Version=v2.0" />
-    <PackageReferenceLock Name="NETStandard.Library" Version="2.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" Include="NETStandard.Library/2.0.1/.NETStandard,Version=v2.0" />
-    <PackageReferenceAllow Include="CsvHelper" Version="6.0.0" Sha512="XuwjP4kFCA+3udv7MLPNZsIO/9LcrHYJHXmEZ8u/Z4WANcc+7efSkKTK0K0x+S9vQK5tTqrHAbi8uimuRcAu6A==" />
+    <PackageReferenceLock Include="CsvHelper" Version="6.0.1" TargetFrameworkMoniker=".NETFramework,Version=v4.6.1" />
+    <PackageReferenceLock Include="CsvHelper" Version="6.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" />
+    <PackageReferenceLock Include="NETStandard.Library" Version="2.0.1" TargetFrameworkMoniker=".NETStandard,Version=v2.0" />
+    <PackageReferenceAllow Include="CsvHelper" Version="6.0.1" Sha512="z1PiHMR+ilh7/B7yOVYv1adUYUOUbDf/ICra8uUPLdq7PpbBAkv2a+OF+kN9aJTpzMhOvxCOAlKGAxHQ4iA0Jw==" />
     <PackageReferenceAllow Include="Microsoft.CSharp" Version="4.4.0" Sha512="vvVR/B08YVghQ4jHEloxqw2ZWzEGE1AOA5E0DioUM3ujbXz6FD3AfB/0Jl2ohJPd0nXYGwmPe1En6HTsSriq1A==" />
     <PackageReferenceAllow Include="Microsoft.NETCore.Platforms" Version="1.1.0" Sha512="kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==" />
     <PackageReferenceAllow Include="NETStandard.Library" Version="2.0.1" Sha512="oA6nwv9MhEKYvLpjZ0ggSpb1g4CQViDVQjLUcDWg598jtvJbpfeP2reqwI1GLW2TbxC/Ml7xL6BBR1HmKPXlTg==" />
