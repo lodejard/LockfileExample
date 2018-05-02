@@ -229,7 +229,7 @@
 
   <Target Name="GetPackageReferenceAllow" Returns="@(PackageReferenceAllow)" />
 
-  <Target Name="GatherPackageReferenceAllow">
+  <Target Name="GatherPackageReferenceAllow" DependsOnTargets="PrepareProjectReferences">
     <MSBuild Projects="@(_MSBuildProjectReferenceExistent)" Targets="GetPackageReferenceAllow" BuildInParallel="$(BuildInParallel)" Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration); %(_MSBuildProjectReferenceExistent.SetPlatform); %(_MSBuildProjectReferenceExistent.SetTargetFramework);">
       <Output TaskParameter="TargetOutputs" ItemName="PackageReferenceAllow" />
     </MSBuild>
