@@ -227,7 +227,15 @@
 
   <Target Name="VerifyLockFileBeforeBuild" DependsOnTargets="VerifyLockFile" AfterTargets="BeforeBuild" Condition=" '$(VerifyLockFile)' == 'true' and Exists('$(ProjectLockFile)') " />
 
-  <Target Name="VerifyLockFile" DependsOnTargets="CalculateAssets;VerifyLockFilePackageReferenceAllow">
+  <Target Name="GetPackageReferenceAllow" Returns="@(PackageReferenceAllow)" />
+
+  <Target Name="GatherPackageReferenceAllow">
+    <MSBuild Projects="@(_MSBuildProjectReferenceExistent)" Targets="GetPackageReferenceAllow" BuildInParallel="$(BuildInParallel)" Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration); %(_MSBuildProjectReferenceExistent.SetPlatform); %(_MSBuildProjectReferenceExistent.SetTargetFramework);">
+      <Output TaskParameter="TargetOutputs" ItemName="PackageReferenceAllow" />
+    </MSBuild>
+  </Target>
+
+  <Target Name="VerifyLockFile" DependsOnTargets="CalculateAssets;GatherPackageReferenceAllow;VerifyLockFilePackageReferenceAllow">
     <ItemGroup>
       <PackagesNotAllowed Include="@(AssetsPackageDefinitions)" 
         Condition=" '%(AssetsPackageDefinitions.Type)' == 'package' and ('%(AssetsPackageDefinitions.Allowed)' != 'true' or '%(AssetsPackageDefinitions.Denied)' == 'true') ">
