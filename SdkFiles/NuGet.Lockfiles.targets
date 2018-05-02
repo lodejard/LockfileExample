@@ -207,7 +207,7 @@
 
   <!-- VERIFY -->
 
-  <Target Name="ApplyLockFile" DependsOnTargets="ApplyLockFilePerPackage" BeforeTargets="CollectPackageReferences" Condition=" '$(ApplyLockFile)' == 'true' and Exists('$(ProjectLockFile)') " />
+  <Target Name="ApplyLockFile" DependsOnTargets="ApplyLockFilePerPackage" BeforeTargets="CollectPackageReferences" Condition=" '$(ApplyLockFile)' == 'true' " />
 
   <Target Name="ApplyLockFilePerPackage" Inputs="@(PackageReferenceLock)" Outputs="%(PackageReferenceLock.Identity)/%(PackageReferenceLock.Version)/%(PackageReferenceLock.TargetFrameworkMoniker)">
     <PropertyGroup>
@@ -225,7 +225,7 @@
 
   <!-- VERIFY -->
 
-  <Target Name="VerifyLockFileBeforeBuild" DependsOnTargets="VerifyLockFile" AfterTargets="BeforeBuild" Condition=" '$(VerifyLockFile)' == 'true' and Exists('$(ProjectLockFile)') " />
+  <Target Name="VerifyLockFileBeforeBuild" DependsOnTargets="VerifyLockFile" AfterTargets="BeforeBuild" Condition=" '$(VerifyLockFile)' == 'true' " />
 
   <Target Name="GetPackageReferenceAllow" Returns="@(PackageReferenceAllow)" />
 
